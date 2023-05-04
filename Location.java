@@ -1,20 +1,19 @@
 import com.google.common.collect.ImmutableMap;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class Location {
 
     private final String name;
     private final String description;
     private ImmutableMap<String, Location> exits;
-    private final Set<Item> items;
+    private ArrayList<Item> items;
 
     public Location(String name, String description, ImmutableMap<String, Location> exits) {
         this.name = name;
         this.description = description;
         this.exits = exits;
-        this.items = new HashSet<>();
+        this.items = new ArrayList<>();
     }
 
     public String getName() {
@@ -42,11 +41,11 @@ public class Location {
         this.exits = exits;
     }
     
-
+/** 
     public boolean contains(Item item) {
         return items.contains(item);
     }
-
+*/
     public void addItem(Item item) {
         items.add(item);
     }
@@ -55,17 +54,28 @@ public class Location {
         items.remove(item);
     }
 
-    public Set<Item> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
     //Checks if location has an item
     public Item contains(String name){
-        for (Item item : Item.getPremadeItems()) {
+        Item newItem = null;
+        for (Item item : this.items) {
             if (item.getName().equals(name)) { 
-                return item;
-            }
-        }
-        return null;
+                newItem = item;
+                break;
+            } 
+        } 
+        return newItem;
     }
+
+    public String printInventory() {
+        String entireInventory = "This room has:\n";
+        for (int i = 0; i < this.items.size(); i++) {
+            entireInventory += "+ " + this.items.get(i).getName().toLowerCase() + "\n";
+        }
+        return entireInventory;
+    }
+
 }

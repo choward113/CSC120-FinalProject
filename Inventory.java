@@ -7,16 +7,6 @@ public class Inventory {
     public Inventory(){
         this.inventory = new ArrayList<Item>();
     }
-    
-    public String addItem(String name){
-        for (Item item : Item.getPremadeItems()) {
-            if (item.getName().equals(name)) {
-                this.inventory.add(item); 
-                return item.getName();
-            }
-        }
-        throw new RuntimeException("Item with name " + name + " not found.");
-    }
 
     private String removeItem(String name){
         for (Item item : Item.getPremadeItems()) {
@@ -44,11 +34,14 @@ public class Inventory {
         }
         return null;
     }
-    public static void main(String[] args) {
-        Inventory myInv = new Inventory();
-        myInv.addItem("stick");
-        myInv.addItem("Test Item");
-        myInv.inventory.get(0);
-        System.out.println(myInv.printInventory());
+
+    public String addItem(String name, Location currentLocation) {
+        Item itemToAdd = currentLocation.contains(name);
+        if (itemToAdd != null) {
+            this.inventory.add(itemToAdd);
+            return itemToAdd.getName();
+        }
+        throw new RuntimeException("Item with name " + name + " not found.");
     }
+
 }

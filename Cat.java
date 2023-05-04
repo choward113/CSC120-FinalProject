@@ -1,15 +1,32 @@
 import java.util.ArrayList;
+import java.util.Random;
+
 public class Cat {
 
     //attributes: personality, name, sabotageChance 
 
-    private final String name;
+    private String name;
     private double sabotageChance;
     private Personality personality;
-    private ArrayList<String> nameList;
+    private ArrayList<String> nameList = new ArrayList<String>(){{
+        add("Whiskers");
+        add("Mittens");
+        add("Sir Paxton");
+        add("Kitty");
+        add("Rat");
+     }};
+
+    public Cat(){
+        //base attributes: neutral, name, 33%
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(5);
+        double personalityRand = rand.nextInt(5);
+        this.name = nameList.get(randomIndex); //random name from nameList
+        this.sabotageChance = 0.33;
+        this.personality = Personality.NEUTRAL;
+    }
 
     public Cat(String name){
-        //base attributes: neutral, name, 33%
         this.name = name;
         this.sabotageChance = 0.33;
         this.personality = Personality.NEUTRAL;

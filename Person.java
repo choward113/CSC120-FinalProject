@@ -18,10 +18,8 @@ public class Person {
     }
 
     public void look(){
-        //if input is examine, look, look around
+        //if input is look, look around
         //print description of location(if room is none)
-        //else print room description
-        //maybe add "look up,down,etc"
         if (this.currentLocation.getDescription() != null){
             System.out.println(this.currentLocation.getDescription());
         }
@@ -47,8 +45,7 @@ public class Person {
     }
 
     public void look(Cat c){
-        //if input is examine cat, look at cat, check cat
-        //print
+        System.out.println(this.getCatName() + " looks ");
     }
 
     public String getCatName(){
@@ -56,11 +53,13 @@ public class Person {
     }
 
     public void pickUpItem(String name){
-        if (this.currentLocation.contains(name) != null){
-            this.cat.pickUp(this.currentLocation.contains(name));
-            this.inventory.addItem((name));
-        } else 
-        System.out.println("test");
+        Location itemLocation = this.currentLocation;
+        if (itemLocation.contains(name) != null){
+            this.inventory.addItem(name, itemLocation);
+            System.out.println("Picked up " + name);
+        } else {
+            System.out.println("There's no "+name+" here.");
+        }
     }
 
     public void walk(String direction){
@@ -72,5 +71,9 @@ public class Person {
             this.currentLocation = nextLocation;
             System.out.println("You are now in the " + this.currentLocation.getName() + ".");
         }
+    }
+
+    public String entireInventory(){
+        return this.inventory.printInventory();
     }
 }
