@@ -1,5 +1,4 @@
 import com.google.common.collect.ImmutableMap;
-
 import java.util.ArrayList;
 
 public class Location {
@@ -8,6 +7,7 @@ public class Location {
     private final String description;
     private ImmutableMap<String, Location> exits;
     private ArrayList<Item> items;
+    private String itemsDescription;
 
     public Location(String name, String description, ImmutableMap<String, Location> exits) {
         this.name = name;
@@ -41,11 +41,19 @@ public class Location {
         this.exits = exits;
     }
     
-/** 
-    public boolean contains(Item item) {
-        return items.contains(item);
+    public String getItemsString(){
+        String itemStringDescriptions = "You can see a";
+        for (int i = 0; i < this.items.size(); i++) {
+            String itemName = this.items.get(i).getName().toLowerCase();
+            if (i == this.items.size() - 1) {
+                itemStringDescriptions += (" and " + itemName);
+            } else {
+                itemStringDescriptions+= (" " + itemName + ",");
+            }
+        }
+        return itemStringDescriptions;
     }
-*/
+
     public void addItem(Item item) {
         items.add(item);
     }
@@ -78,4 +86,14 @@ public class Location {
         return entireInventory;
     }
 
+    public static void main(String[] args) {
+        Location loc = new Location("Location name", "description", null);
+        Item item1 = new Item("Item 1", "Item 1", true);
+        Item item2 = new Item("Item2 Desc", "item2", true);
+        Item item3 = new Item("Item3 desc", "item3", true);
+        loc.addItem(item1);
+        loc.addItem(item2);
+        loc.addItem(item3);
+        System.out.println(loc.getItemsString());
+    }
 }

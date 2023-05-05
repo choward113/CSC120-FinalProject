@@ -8,14 +8,16 @@ public class Inventory {
         this.inventory = new ArrayList<Item>();
     }
 
-    private String removeItem(String name){
-        for (Item item : Item.getPremadeItems()) {
+    public Item removeItem(String name){
+        Item itemToRemove = null;
+        for (Item item : inventory) {
             if (item.getName().equals(name)) {
-                this.inventory.remove(item); 
-                return item.getName();
+                itemToRemove = item;
+                inventory.remove(item); 
+                break;
             }
         }
-        throw new RuntimeException("Item with name " + name + " not found.");
+        return itemToRemove;
     }
 
     public String printInventory(){

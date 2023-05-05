@@ -22,6 +22,7 @@ public class Person {
         //print description of location(if room is none)
         if (this.currentLocation.getDescription() != null){
             System.out.println(this.currentLocation.getDescription());
+            System.out.println(this.currentLocation.getItemsString());
         }
         else{
             System.out.println(this.currentLocation.getDescription());
@@ -44,21 +45,28 @@ public class Person {
         }
     }
 
-    public void look(Cat c){
-        System.out.println(this.getCatName() + " looks ");
-    }
-
     public String getCatName(){
         return this.cat.getName();
     }
 
     public void pickUpItem(String name){
         Location itemLocation = this.currentLocation;
-        if (itemLocation.contains(name) != null){
+        Item item = itemLocation.contains(name);
+        if (itemLocation.contains(name) != null && !item.getPickedUp()){
             this.inventory.addItem(name, itemLocation);
             System.out.println("Picked up " + name);
+            item.setPickedUp(true);
+            itemLocation.removeItem(item);
         } else {
             System.out.println("There's no "+name+" here.");
+        }
+    }
+
+    public void dropItem(String itemName) {
+        Item item = inventory.removeItem(itemName);
+        if (item != null) {
+            currentLocation.addItem(item);
+            System.out.println("Dropped "+ item.getName());
         }
     }
 
@@ -76,4 +84,5 @@ public class Person {
     public String entireInventory(){
         return this.inventory.printInventory();
     }
+
 }

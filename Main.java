@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         //Creates 3 main locations
         Location kitchen = new Location("kitchen", "You are in a large, modern kitchen. There's some cat food on the counter and some strawberries on the table. There is a door to the north.", null);
-        Location livingRoom = new Location("living room", "You are in a spacious living room. There's a collar, leash, and a bell by the door. There is a door to the south.", null);
+        Location livingRoom = new Location("living room", "You are in a spacious living room. There is a door to the south.", null);
         Location bedRoom = new Location("bed room", "You're in your bedroom. It has a bed and you at the moment.", null);
 
         //Sets the exists of the locations
@@ -14,9 +14,11 @@ public class Main {
         bedRoom.setExits(ImmutableMap.of("down", livingRoom));
         
         //Add items to kitchen location
-        Item strawberry = new Item("Some strawberries, they look fresh.","strawberries", true);
+        Item strawberry = new Item("A strawberry, it looks fresh.","strawberry", true);
         Item catFood = new Item("A can of cat food. It looks old...", "cat food", true);
+        Item bowl = new Item("A plastic bowl. It's empty.", "bowl", true);
         kitchen.addItem(strawberry);
+        kitchen.addItem(bowl);
         kitchen.addItem(catFood);
 
         //Add items to living room location
@@ -34,7 +36,11 @@ public class Main {
         bedRoom.addItem(stone);
         bedRoom.addItem(stick);
         bedRoom.addItem(grass);
-        System.out.println(bedRoom.printInventory());
+
+        // Booleans for quests
+        boolean hasFood = false; 
+        boolean hasBowl = false;
+        boolean isInKitchen = false;
 
         //Initialize cat and person
         Cat cat = new Cat();
@@ -83,6 +89,11 @@ public class Main {
             if (input.startsWith("pick up ")) {
                 String name = input.substring(8);
                 person.pickUpItem(name);
+            }
+
+            if (input.startsWith("drop")) {
+                String name = input.substring(5);
+                person.dropItem(name);
             }
 
             if (input.startsWith("walk")) {

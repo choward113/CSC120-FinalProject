@@ -17,13 +17,14 @@ public class Cat {
      }};
 
     public Cat(){
-        //base attributes: neutral, name, 33%
+        //Randomized cat
         Random rand = new Random();
         int randomIndex = rand.nextInt(5);
-        double personalityRand = rand.nextInt(5);
         this.name = nameList.get(randomIndex); //random name from nameList
-        this.sabotageChance = 0.33;
-        this.personality = Personality.NEUTRAL;
+        this.sabotageChance = rand.nextDouble()* 0.3;
+        int personalityRand = rand.nextInt(5);
+        Personality[] values = Personality.values();
+        this.personality = values[personalityRand];
     }
 
     public Cat(String name){
@@ -70,28 +71,24 @@ public class Cat {
         }
     }
 
-    public boolean walk(String direction){
+    public boolean sabotageWalk(String direction){
         if (sabotage()){
             System.out.println(name + " is blocking your way and preventing you from moving.");
-            return false;
+            return true;
         }
         else {
-            System.out.println(name + " walks with you towards the " + direction + ".");
-            return true;
+            System.out.println(name + " walks "+direction+" with you.");
+            return false;
         }
     }
 
-    public boolean pickUp(Item s){
-        //if this.sabotage() true
-        //sout (name + "knocks the " + s + " out of your hands...")
-        //return false to indicate sabotage happened
-        //else return true to indicate successful pickup
+    public boolean sabotagePickUp(Item s){
         if (sabotage()){
             System.out.println(name + " knocks the " + s.getName() + " out of your hands...");
-            return false;
+            return true;
         }
         else {
-            return true;
+            return false;
         }
     }
 }
