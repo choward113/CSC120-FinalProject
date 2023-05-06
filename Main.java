@@ -63,7 +63,11 @@ public class Main {
             }
 
             if (input.equals("help")){
-                System.out.println(">To move type \"go\" + north, south, east, west, up, or down.\n>To get a description of the room type \"look around\".\n>To pick up an item type \"take\" + the name of the item");
+                System.out.println("> To move type \"go\" + north, south, east, west, up, or down."
+                 +"\n> To get a description of the room type \"look around\"."+
+                 "\n> To pick up an item type \"take\" + the name of the item"+
+                 "\n> To use an item type \"use\" + the name of the item"+
+                 "\n> Type \"pet\" + cat name to pet your cat");
             }
 
             //Three options for look: "look", "look at", and "look around".

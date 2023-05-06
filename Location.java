@@ -1,14 +1,20 @@
 import com.google.common.collect.ImmutableMap;
 import java.util.ArrayList;
 
+/**A Location class representing a location that can contain items and have them added and removed*/
 public class Location {
 
     private final String name;
     private final String description;
     private ImmutableMap<String, Location> exits;
     private ArrayList<Item> items;
-    private String itemsDescription;
 
+    /**
+     * Constructor for Location class
+     * @param name The name of the location
+     * @param description The description of the location
+     * @param exits ImmutableMap that represents the exits of the location
+     */
     public Location(String name, String description, ImmutableMap<String, Location> exits) {
         this.name = name;
         this.description = description;
@@ -16,24 +22,51 @@ public class Location {
         this.items = new ArrayList<>();
     }
 
+    /**
+     * Accessor for name
+     * @return The name of the location
+     */
     public String getName() {
-        return name;
+        return this.name;
     }
 
+    /**
+     * Accessor for description
+     * @return The description of the location
+     */
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
-    //Returns all exits
+    /**
+     * Accessor for exits
+     * @return ImmutableMap that represents the exits of the location
+     */
     public ImmutableMap<String, Location> getExits() {
-        return exits;
+        return this.exits;
     }
 
-    //Returns the exit in a given direction
+    /**
+     * Returns the location in the given direction
+     * @param direction The direction of the exit
+     * @return The location in a given direction
+     */
     public Location getExit(String direction) {
-        return exits.get(direction);
+        return this.exits.get(direction);
+    }
+
+    /**
+     * Accessor for items
+     * @return ArrayList of Items in the location
+     */
+    public ArrayList<Item> getItems() {
+        return items;
     }
     
+    /**
+     * Mutator for exits
+     * @param exits ImmutableMap that represents the exits of the location
+     */
     public void setExits(ImmutableMap<String, Location> exits) {
         if (exits == null) {
             throw new IllegalArgumentException("Exits cannot be null");
@@ -41,32 +74,44 @@ public class Location {
         this.exits = exits;
     }
     
-    public String getItemsString(){
+    /**
+     * Returns a string representation of the items in a location
+     * @return A string representation of the items in a location
+     */
+    public String getItemsString() {
         String itemStringDescriptions = "You can see a";
         for (int i = 0; i < this.items.size(); i++) {
             String itemName = this.items.get(i).getName().toLowerCase();
             if (i == this.items.size() - 1) {
                 itemStringDescriptions += (" and " + itemName);
             } else {
-                itemStringDescriptions+= (" " + itemName + ",");
+                itemStringDescriptions += (" " + itemName + ",");
             }
         }
         return itemStringDescriptions;
     }
 
+    /**
+     * Adds an item to the location
+     * @param item The item to be added
+     */
     public void addItem(Item item) {
         items.add(item);
     }
 
+    /**
+     * Removes item from the location
+     * @param item The item to be removed
+     */
     public void removeItem(Item item) {
         items.remove(item);
     }
 
-    public ArrayList<Item> getItems() {
-        return items;
-    }
-
-    //Checks if location has an item
+    /**
+     * Checks if location contains an Item with a given name
+     * @param name The name of the itme
+     * @return The item with a given name, or null if the item is not found
+     */
     public Item contains(String name){
         Item newItem = null;
         for (Item item : this.items) {
@@ -78,22 +123,15 @@ public class Location {
         return newItem;
     }
 
+    /**
+     * Returns a string representation of the items in the current location
+     * @return A string representation of the items in the location
+     */
     public String printInventory() {
         String entireInventory = "This room has:\n";
         for (int i = 0; i < this.items.size(); i++) {
             entireInventory += "+ " + this.items.get(i).getName().toLowerCase() + "\n";
         }
         return entireInventory;
-    }
-
-    public static void main(String[] args) {
-        Location loc = new Location("Location name", "description", null);
-        Item item1 = new Item("Item 1", "Item 1", true);
-        Item item2 = new Item("Item2 Desc", "item2", true);
-        Item item3 = new Item("Item3 desc", "item3", true);
-        loc.addItem(item1);
-        loc.addItem(item2);
-        loc.addItem(item3);
-        System.out.println(loc.getItemsString());
     }
 }
