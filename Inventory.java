@@ -46,4 +46,8 @@ public class Inventory {
         throw new RuntimeException("Item with name " + name + " not found.");
     }
 
+    public ArrayList<Item> getItems(){
+        return this.inventory;
+    }
+
 }

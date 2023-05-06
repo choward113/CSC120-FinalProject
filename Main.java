@@ -37,10 +37,9 @@ public class Main {
         bedRoom.addItem(stick);
         bedRoom.addItem(grass);
 
-        // Booleans for quests
-        boolean hasFood = false; 
-        boolean hasBowl = false;
-        boolean isInKitchen = false;
+        // Booleans for quest
+        boolean catIsFed = false;
+        boolean catIsHappy = false;
 
         //Initialize cat and person
         Cat cat = new Cat();
@@ -108,6 +107,23 @@ public class Main {
 
             if (input.startsWith("inventory")) {
                 System.out.println(person.entireInventory());
+            }
+
+            if (input.startsWith("use")) {
+                String itemName = input.substring(4);
+                person.use(itemName);
+                catIsFed = cat.getIsFed();
+                catIsHappy = cat.getIsHappy();
+            }
+
+            if (input.startsWith("pet")) {
+                person.petCat();
+                catIsHappy = cat.getIsHappy();
+            }
+
+            if (catIsHappy){
+                System.out.println("You win! (until the next time you need to feed your cat)");
+                break;
             }
         }
         scanner.close();
