@@ -2,9 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-/**
-    A Cat class represents a cat with a name, personality, and the ability to sabotage various actions.
-    */
+/**A Cat class represents a cat with a name, personality, and the ability to sabotage various actions.*/
 public class Cat {
 
     private String name; // The name of the cat.
@@ -22,8 +20,8 @@ public class Cat {
      }}; // Possible names for cat
     
 
-    /*Default constructor, initializes a Cat with random personality, name, and sabotage chance*/
-    public Cat(){
+    /**Default constructor, initializes a Cat with random personality, name, and sabotage chance*/
+    public Cat() {
         Random rand = new Random();
         int randomIndex = rand.nextInt(5);
         this.name = nameList.get(randomIndex);
@@ -36,8 +34,8 @@ public class Cat {
         this.isPet = false;
     }
 
-    /* Full constructor */
-    public Cat(String name, double sabotageChance, Personality personality){
+    /** Full constructor */
+    public Cat(String name, double sabotageChance, Personality personality) {
         this.name = name;
         this.sabotageChance = sabotageChance;
         this.personality = personality;
@@ -50,7 +48,7 @@ public class Cat {
     * Accessor for name
     * @return The name of the cat
     */
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
@@ -58,7 +56,7 @@ public class Cat {
      * Accessor for isFed
      * @return Whether or not the cat has been fed
      */
-    public boolean getIsFed(){
+    public boolean getIsFed() {
         return this.isFed;
     }
 
@@ -66,8 +64,8 @@ public class Cat {
      * Accessor for isHappy
      * @return Whether or not the cat is happy
      */
-    public boolean getIsHappy(){
-        if (this.isFed && this.isPet){
+    public boolean getIsHappy() {
+        if (this.isFed && this.isPet) {
             return true;
         } else {
             return false;
@@ -78,7 +76,7 @@ public class Cat {
      * Mutator for sabotageChance
      * @param newSabotageChance The new value for sabotageChance
      */
-    public void setSabotageChange(double newSabotageChance){
+    public void setSabotageChange(double newSabotageChance) {
         this.sabotageChance = newSabotageChance;
     }
 
@@ -86,7 +84,7 @@ public class Cat {
      * Mutator for isPet
      * @param bool The new value for isPet
      */
-    public void setIsPet(boolean bool){
+    public void setIsPet(boolean bool) {
         this.isPet = bool;
     }
 
@@ -94,7 +92,7 @@ public class Cat {
      * Feeds cat a given food
      * @param food The food to feed the cat
      */
-    public void feed(String food){
+    public void feed(String food) {
         if (food.equals("cat food")) {
             System.out.println(this.name+" looks pleased.");
             sabotageChance = 0;
@@ -112,14 +110,13 @@ public class Cat {
      * If the sabotage chance is greater than or equal to 0.5, it subtracts 0.3, otherwise it adds a value based on personality to sabotageChance 
      * @return True if the cat sabotages, false otherwise.
      */
-    public boolean sabotage(){
+    public boolean sabotage() {
         //if sabotageChance above .50, return true and subtract 30
         //else return false, and add .10-.20(depends on personality)
-        if (this.sabotageChance >= 0.5){
+        if (this.sabotageChance >= 0.5) {
             this.sabotageChance -= 0.3;
             return true;
-        }
-        else{
+        } else {
             this.sabotageChance += getSabotageBoost(this.personality);
             return false;
         }
@@ -130,7 +127,7 @@ public class Cat {
      * @param personality The personality of the cat
      * @return  A double value representing the sabotage boost.
      */
-    private double getSabotageBoost(Personality personality){
+    private double getSabotageBoost(Personality personality) {
         if (this.personality == Personality.NEUTRAL){
             return 0.1;
         } else if (this.personality == Personality.SLY) {
@@ -152,12 +149,11 @@ public class Cat {
     * @param direction The direction in which the owner is walking
     * @return True if the cat sabotages, false otherwise.
     */
-    public boolean sabotageWalk(String direction){
-        if (sabotage()){
+    public boolean sabotageWalk(String direction) {
+        if (sabotage()) {
             System.out.println(name + " is blocking your way and preventing you from moving.");
             return true;
-        }
-        else {
+        } else {
             System.out.println(name + " walks "+direction+" with you.");
             return false;
         }
@@ -168,7 +164,7 @@ public class Cat {
      * @param s The item the Person is trying to pick up
      * @return True if the cat sabotages, false otherwise.
      */
-    public boolean sabotagePickUp(Item s){
+    public boolean sabotagePickUp(Item s) {
        return sabotage();
     }
 }
