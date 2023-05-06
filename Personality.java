@@ -1,1 +1,1 @@
-public enum Personality {NEUTRAL, SLY, AGGRESSIVE, KIND, SHY}
+public enum Personality {NEUTRAL, SLY, MEAN, KIND, SHY}
