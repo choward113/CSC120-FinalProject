@@ -68,8 +68,8 @@ public class Person {
      * @param name The name of the item
      */
     public void lookAtItem(String name) {
-        if (this.inventory.contains(name) != null) {
-            System.out.println(this.inventory.contains(name).getDescription());
+        if (this.hasItem(name)) {
+            System.out.println(this.getItem(name).getDescription()); 
         } else if (this.currentLocation.contains(name) != null) {
             System.out.println(this.currentLocation.contains(name).getDescription());
         } else {
@@ -185,59 +185,75 @@ public class Person {
         }
 
     /**
+     * Returns an item in the inventory with a given name
+     * @param name The name of the item 
+     * @return The item if the person has the item, null otherwise
+     */
+    public Item getItem(String name){
+        for (Item item : getInventory()) {
+            if (item.getName().equals(name)) { 
+                return item;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Uses item from inventory
      * @param itemName The name of the item to be used
      */
     public void use(String itemName) {
         if (this.hasItem(itemName)) {
-            if (itemName.equals("bowl")) { //If the player uses the bowl 
-                if (this.hasItem("cat food") || this.hasItem("strawberry")) { //Player can use strawberry or
-                    Scanner scanner = new Scanner(System.in);
-                    System.out.println("Use bowl with which item?");
-                    String itemToUseWith = scanner.nextLine().toLowerCase().trim();
-    
-                    if (itemToUseWith.equals("cat food") && this.hasItem("cat food")) {
-                        System.out.println("You feed the cat the cat food.");
-                        this.inventory.removeItem(itemToUseWith);
-                        this.cat.feed("cat food");
-                        return;
-                    } else if (this.hasItem(itemToUseWith)) {
-                        System.out.println("You try to feed the cat the " + itemToUseWith+".");
-                        this.inventory.removeItem(itemToUseWith);
-                        this.cat.feed("strawberry");
-                        return;
-                    } else {
-                        System.out.println("You can't use the bowl with that item.");
-                        return;
-                    }
-                } else {
-                    System.out.println("You need something to put in the bowl.");
-                    return;
-                }
-
-            } else if (itemName.equals("collar")) {
-                if (this.hasItem("bell") || this.hasItem("leash")) {
-                    Scanner scanner = new Scanner(System.in);
-                    System.out.println("Use collar with which item?");
-                    String itemToUseWith = scanner.nextLine().toLowerCase().trim();
-    
-                    if (itemToUseWith.equals("bell") && this.hasItem("bell")) {
-                        System.out.println("You put the collar on the cat "+ this.getCatName()+ " looks extra cute.");
-                        this.inventory.removeItem(itemToUseWith);
-                        this.inventory.removeItem(itemName);
-                        return;
-
-                    }
-                    
+          if (itemName.equals("bowl")) { //If the player uses the bowl 
+            if (this.hasItem("cat food") || this.hasItem("strawberry")) { //Player can use strawberry or cat food
+              Scanner scanner = new Scanner(System.in);
+              System.out.println("Use bowl with which item?");
+              String itemToUseWith = scanner.nextLine().toLowerCase().trim();
+      
+              if (itemToUseWith.equals("cat food") && this.hasItem("cat food")) {
+                System.out.println("You feed the cat the cat food.");
+                this.inventory.removeItem(itemToUseWith);
+                this.cat.feed("cat food");
+                return;
+              } else if (this.hasItem(itemToUseWith)) {
+                System.out.println("You try to feed the cat the " + itemToUseWith + ".");
+                this.inventory.removeItem(itemToUseWith);
+                this.cat.feed("strawberry");
+                return;
+              } else {
+                System.out.println("You can't use the bowl with that item.");
+                return;
+              }
             } else {
-                System.out.println("Used " + itemName);
+              System.out.println("You need something to put in the bowl.");
+              return;
+            }
+      
+          } else if (itemName.equals("collar")) { //player can 
+            if (this.hasItem("bell") || this.hasItem("leash")) {
+              Scanner scanner = new Scanner(System.in);
+              System.out.println("Use collar with which item?");
+              String itemToUseWith = scanner.nextLine().toLowerCase().trim();
+      
+              if (itemToUseWith.equals("bell") && this.hasItem("bell")) {
+                System.out.println("You put the collar on the cat " + this.getCatName() + " looks extra cute.");
+                this.inventory.removeItem(itemToUseWith);
                 this.inventory.removeItem(itemName);
                 return;
+      
+              }
+      
+            } else if (itemName.equals("cat food")) {
+              System.out.println("You can't use that here");
+            } else {
+                System.out.println("Used " + itemName);
+              this.inventory.removeItem(itemName);
+              return;
             }
-        } else {
+
+          } else {
             System.out.println("You can't use that.");
+          }
         }
-        }
-    }
-    
+      }    
 }

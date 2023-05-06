@@ -1,11 +1,7 @@
 This file will contain documentation for all commands available in your game.
 
-Note:  It's a good idea to also make this list available inside the game, in response to a `HELP` command.
-
-
 # SPOILER ALERT
 
-If your game includes challenges that must be overcome to win, also list them below.
 
 ACTIONS
 
@@ -17,11 +13,21 @@ To pick up an item type "pick up" or "take" plus the item. The names of the item
 
 To use an item type "use" + the item name.
 
+To pet the cat type "pet"
+
 CHALLENGE
-Get the cat food and bowl from the kitchen and use them.
+Pet the cat and get the cat food and bowl from the kitchen and use them.
+
+LOCATIONS
+
+The bedroom is the starting point. The exit is down. Can't return here after leaving.
+The living room is down from the bedroom. The exit to the kitchen is south. 
+The kitchen is south of the living room. The exit to the living room is north.
+
 
 QUICKEST WAY TO COMPLETE:
 
+"pet cat"
 "go down"
 "go south"
 "take cat food"
